@@ -1,8 +1,12 @@
+
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +31,11 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+/*Route::middleware(['auth:sanctum', 'verified'])->get('/user', function () {
+
+    $users = User::all();
+    return Inertia::render('User', compact('users'));
+})->name('user.index'); */
+
+Route::middleware(['auth:sanctum', 'verified'])->resource('/dashboard/user', UserController::class)->parameters(['user' => 'customer']);
